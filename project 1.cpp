@@ -26,6 +26,29 @@ void  back_to_menu() {
 }
 //////////////////////////////////////////////////////////////////////////////////
 
+stdata fill_data(string account_number) {
+	stdata data;
+	data.account_number = account_number;
+	data.pin = read_string("\nenter pin: ");
+	data.name = read_full_line("\nenter name: ");
+	data.phone = read_string("\nenter your phone number: ");
+	data.account_balance = read_string("\nenter account balance: ");
+	return data;
+	
+
+}
+
+//stdata fill_data(stdata data) {
+//	stdata data.;
+//	data.account_number = read_string("enter account num: ");
+//	data.pin = read_string("\nenter pin: ");
+//	data.name = read_full_line("\nenter name: ");
+//	data.phone = read_string("\nenter your phone number: ");
+//	data.account_balance = read_string("\nenter account balance: ");
+//	return data;
+//
+//
+//}
 
 // split line(from file)  into raw data (very imp )
 vector<string> split_string(string line , string delmi) {
@@ -70,14 +93,14 @@ stdata convert_line_into_record(string line) {
 vector<stdata> Vector_have_all_data(string path){
 	
 	vector<stdata> v_with_all_data;
-	fstream read;
-	read.open(path, ios::in); //read mode 
+	fstream write;
+	write.open(path, ios::in); //read mode 
 
-	if (read.is_open()) {
+	if (write.is_open()) {
 
 		string ld=" "; // line of data 
 		stdata data;
-		while (getline(read, ld)) {
+		while (getline(write, ld)) {
 			if (ld != "") 
 			{
 
@@ -143,6 +166,109 @@ void show_client_list() {
 }
 
 
+
+// check if the account number (entered by user) is exist in file or not 
+bool check_the_account_number(string account_number_by_user ) {
+	stdata data; 
+	data.account_number = account_number_by_user;
+	vector<stdata> search_account_number;
+	search_account_number = Vector_have_all_data(path);
+
+	for (stdata &vd : search_account_number) {
+		if (vd.account_number == data.account_number) {
+			//Client = vd;
+			return true;
+		}
+	}
+	
+	return false;
+}
+
+//convert stdata into single line to store in file 
+string convert_stdata_into_single_line(stdata data) {
+	return (data.account_number + delmi + (data.pin) + delmi + data.name + delmi + data.phone + delmi + (data.account_balance));
+}
+
+//take vector with edited data and write it into file
+void add_new_client_in_file(vector < string> &lines_of_data) {
+
+	
+
+	fstream write;
+	write.open(path, ios::out); //write mode
+
+	if (write.is_open()) {
+
+		for (const string &line : lines_of_data) {
+
+			if(line!="") write << line << endl;
+         
+		}
+		write.close();
+	}
+
+}
+
+char choice_add_new_or_not() {
+	char c = ' ';
+	cin >> c;
+	 c=toupper(c);
+	 return c; 
+}
+
+
+
+
+void add_client() {
+	cout << "\n_________________________________________________\n\n\n";
+	cout << "\t adding new client\n";
+	cout << "\n_________________________________________________\n";
+	string account_number =" "; 
+	stdata Client_data;
+	
+	
+	char choice = 'Y';
+	do {
+
+		account_number = read_string("\n\nenter account number: ");
+
+		// if the check == true then the account number exist and ask the user to enter another one
+		while (check_the_account_number(account_number) != false) {
+
+			cout << "\nthe account number " << "[ " << account_number << " ]" << " is exist!, ";
+			cout << "\a";
+			account_number = read_string("enter correct account number again : ");
+		}
+
+		/// if the account number isn't exist 
+		cout << "\n________________________\n";
+		cout << endl;
+		Client_data = fill_data(account_number); // fill data into empty stdata
+
+		string line = convert_stdata_into_single_line(Client_data); // convert the data into single line
+
+		vector<stdata> addClient;
+
+		addClient = Vector_have_all_data(path); // make copy of all data into vector to edit it 
+
+		vector<string> Nlines_of_data; // vector have the lines of data 
+		for (stdata& d : addClient) {
+			string record = convert_stdata_into_single_line(d); // convert struct into line 
+			Nlines_of_data.push_back(record); // push lines of data 
+		}
+		Nlines_of_data.push_back(line); // push the new client into file 
+
+		add_new_client_in_file(Nlines_of_data); // write the new data with update
+
+		cout << "\ndata successfully added,do you want to add another clients [y],[n]? : ";
+		choice = choice_add_new_or_not();
+
+	} while (choice == 'Y');
+
+
+
+}
+
 /// main menu stuff ////////////////////////////////////////////////////////////////
 
 enOption select_option() {
@@ -201,6 +327,11 @@ void do_job_according_to_number(enOption option) {
 		back_to_menu(); // to back to main menu again 
 		break;
 
+	case enOption::addNewClient:
+		add_client(); // option[2]
+		back_to_menu(); // to back to main menu again 
+		break;
+
 	case enOption::Exit:
 		exit_screen();
 		break;
@@ -234,5 +365,8 @@ void start()
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 int main() {
+
 	start();
+
+
 }
