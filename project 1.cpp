@@ -38,46 +38,34 @@ stdata fill_data(string account_number) {
 
 }
 
-//stdata fill_data(stdata data) {
-//	stdata data.;
-//	data.account_number = read_string("enter account num: ");
-//	data.pin = read_string("\nenter pin: ");
-//	data.name = read_full_line("\nenter name: ");
-//	data.phone = read_string("\nenter your phone number: ");
-//	data.account_balance = read_string("\nenter account balance: ");
-//	return data;
-//
-//
-//}
-
 // split line(from file)  into raw data (very imp )
-vector<string> split_string(string line , string delmi) {
+vector<string> split_string(string new_client_line , string delmi) {
 
 	vector<string> vdata;
 	short pos = 0; 
 	string sword;
 	 
-	while ((pos = line.find(delmi)) != string::npos) {
+	while ((pos = new_client_line.find(delmi)) != string::npos) {
 
-		sword = line.substr(0, pos);
+		sword = new_client_line.substr(0, pos);
 
 		if (sword != "") vdata.push_back(sword);
 
-		line.erase(0, pos + delmi.length());
+		new_client_line.erase(0, pos + delmi.length());
 	}
 
-	if (line != "") vdata.push_back(line);
+	if (new_client_line != "") vdata.push_back(new_client_line);
 
 	return vdata;
 
 }
 
 //convert line of file into data filled in struct (return stdata which filled with data)
-stdata convert_line_into_record(string line) {
+stdata convert_line_into_record(string new_client_line) {
 
 	vector<string> dataSplited;
 	stdata data;
-	dataSplited = split_string(line, delmi);
+	dataSplited = split_string(new_client_line, delmi);
 
 	data.account_number = dataSplited[0];
 	data.pin = dataSplited[1];
@@ -165,8 +153,6 @@ void show_client_list() {
 	
 }
 
-
-
 // check if the account number (entered by user) is exist in file or not 
 bool check_the_account_number(string account_number_by_user ) {
 	stdata data; 
@@ -190,7 +176,7 @@ string convert_stdata_into_single_line(stdata data) {
 }
 
 //take vector with edited data and write it into file
-void add_new_client_in_file(vector < string> &lines_of_data) {
+void edit_file(vector <string> &lines_of_data) {
 
 	
 
@@ -199,9 +185,9 @@ void add_new_client_in_file(vector < string> &lines_of_data) {
 
 	if (write.is_open()) {
 
-		for (const string &line : lines_of_data) {
+		for (const string &new_client_line : lines_of_data) {
 
-			if(line!="") write << line << endl;
+			if(new_client_line!="") write << new_client_line << endl;
          
 		}
 		write.close();
@@ -215,9 +201,6 @@ char choice_add_new_or_not() {
 	 c=toupper(c);
 	 return c; 
 }
-
-
-
 
 void add_client() {
 	cout << "\n_________________________________________________\n\n\n";
@@ -245,20 +228,21 @@ void add_client() {
 		cout << endl;
 		Client_data = fill_data(account_number); // fill data into empty stdata
 
-		string line = convert_stdata_into_single_line(Client_data); // convert the data into single line
+		string new_client_line = convert_stdata_into_single_line(Client_data); // convert the data into single line
 
-		vector<stdata> addClient;
+		vector<stdata> all_data_from_file_in_vector;
 
-		addClient = Vector_have_all_data(path); // make copy of all data into vector to edit it 
+		all_data_from_file_in_vector = Vector_have_all_data(path); // make copy of all data into vector to edit it 
 
-		vector<string> Nlines_of_data; // vector have the lines of data 
-		for (stdata& d : addClient) {
+		vector<string> Nlines_of_data; // empth vector to push the existing data with new data also
+
+		for (stdata& d : all_data_from_file_in_vector) {
 			string record = convert_stdata_into_single_line(d); // convert struct into line 
-			Nlines_of_data.push_back(record); // push lines of data 
+			Nlines_of_data.push_back(record); // push lines of data (in empty vector )
 		}
-		Nlines_of_data.push_back(line); // push the new client into file 
+		Nlines_of_data.push_back(new_client_line); // push the new client into file 
 
-		add_new_client_in_file(Nlines_of_data); // write the new data with update
+		edit_file(Nlines_of_data); // write the new data with update
 
 		cout << "\ndata successfully added,do you want to add another clients [y],[n]? : ";
 		choice = choice_add_new_or_not();
@@ -268,6 +252,8 @@ void add_client() {
 
 
 }
+
+
 
 /// main menu stuff ////////////////////////////////////////////////////////////////
 
