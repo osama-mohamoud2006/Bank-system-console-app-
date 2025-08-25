@@ -1,3 +1,5 @@
 ﻿  project 1.cpp
-MSVCRTD.lib(exe_main.obj) : error LNK2019: unresolved external symbol main referenced in function "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ)
-E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\project 1\x64\Debug\project 1.exe : fatal error LNK1120: 1 unresolved externals
+E:\projects\my library\logic_stuff.h(117,14): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'project%201.cpp')
+  
+  project 1.vcxproj -> E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\project 1\x64\Debug\project 1.exe
