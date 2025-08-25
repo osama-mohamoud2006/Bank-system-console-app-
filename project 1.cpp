@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <fstream>
 #include <vector>
 #include <cctype>
 #include <string>
@@ -7,6 +8,7 @@
 using namespace AllStuff;
 using namespace std;
 
+//esstinals for the project/////////////////////////////////////////////////
 struct stdata
 {
 	string account_number = " ";
@@ -16,22 +18,31 @@ struct stdata
 	string account_balance = " ";
 };
 enum enOption{ none =0,showClientList=1 , addNewClient=2 , Exit=6 };
-
-
+const string path = "local db.text";
+const string delmi = "#//#";
 void  back_to_menu() {
 	cout << "\npress any key to back to main menu ! " << endl;
 	system("pause>0");
 }
+//////////////////////////////////////////////////////////////////////////////////
 
-void testPrint() {
+
+
+
+
+
+
+
+
+
+void show_client_list() {
 	cout << "hello" << endl;
 
 	
 }
 
 
-
-
+/// main menu stuff ////////////////////////////////////////////////////////////////
 enOption select_option() {
 	bool is_ok = false;
 	int number = 0;
@@ -86,7 +97,7 @@ void do_job_according_to_number(enOption option) {
 	
 	switch (option) {
 	case enOption::showClientList:
-		testPrint();
+		show_client_list();
 		back_to_menu();
 		break;
 
@@ -100,7 +111,6 @@ void do_job_according_to_number(enOption option) {
 	}
 	
 }
-
 
 void start()
 {
@@ -122,6 +132,7 @@ void start()
 	
 
 }
+
 int main() {
 	start();
 }
