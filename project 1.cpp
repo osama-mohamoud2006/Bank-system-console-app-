@@ -8,11 +8,11 @@
 using namespace AllStuff;
 using namespace std;
 
-//esstinals for the project/////////////////////////////////////////////////
+///////    esstinals for the project//////////////////////////////////////
 struct stdata
 {
-	string account_number = " ";
-	string pin = "";
+	string account_number = " "; // this is the main key which is very importat to manage data 
+	string pin = " ";
 	string name = " ";
 	string phone = " ";
 	string account_balance = " ";
@@ -25,6 +25,7 @@ void  back_to_menu() {
 	system("pause>0");
 }
 //////////////////////////////////////////////////////////////////////////////////
+
 
 // split line(from file)  into raw data (very imp )
 vector<string> split_string(string line , string delmi) {
@@ -95,7 +96,7 @@ vector<stdata> Vector_have_all_data(string path){
 	return v_with_all_data;
 }
 
-//print header for show client list
+//print header for show client list (FOR "SHOW ALL CLIENT (1) ) 
 void print_header(int num) {
 	cout << "\n\n";
 	cout << setw(35) << right << " CLIENTS LIST (" << num << ")\n\n";
@@ -108,9 +109,10 @@ void print_header(int num) {
 		<< setw(12) << "Balance"
 		<< endl;
 
-	cout << string(77, '-') << endl; // ?? ???? ??? ????????
+	cout << string(77, '-') << endl; 
 }
-//print data 
+
+//print data (FOR "SHOW ALL CLIENT (1) ) 
 void printStruct(const stdata& data)
 {
 	cout << "| " << left
@@ -128,10 +130,10 @@ void printStruct(const stdata& data)
 void show_client_list() {
 
 	vector<stdata> vprint;
-	vprint = Vector_have_all_data(path);
+	vprint = Vector_have_all_data(path); // bring all data from file to print 
 
 	print_header(vprint.size()); // print header
-	for (stdata& client : vprint) {
+	for (const stdata& client : vprint) {
 
 		
 		printStruct(client); // print clients data 
@@ -142,6 +144,7 @@ void show_client_list() {
 
 
 /// main menu stuff ////////////////////////////////////////////////////////////////
+
 enOption select_option() {
 	bool is_ok = false;
 	int number = 0;
@@ -165,7 +168,6 @@ enOption select_option() {
 	system("color 0F"); //rest screen color 
 	return (enOption)number;
 }
-
 void main_menu() {
 	system("cls");
 	cout << setw(5) << "\tWelcome to bank system! " ;
@@ -183,20 +185,19 @@ void main_menu() {
 
 	
 }
-
 void exit_screen() {
 	cout << "\t________________________________________________________________________" << endl;
-	cout << "\t\t\t\t Say Good bye to me , mewo " << endl;
+	cout << "\t\t\t\t Say Good bye to me , mewo :)" << endl;
 	cout << "\t________________________________________________________________________" << endl;
 	system("pause");
 }
-
 void do_job_according_to_number(enOption option) {
 	system("cls");
 	
 	switch (option) {
+
 	case enOption::showClientList:
-		show_client_list();
+		show_client_list(); // option[1]
 		back_to_menu(); // to back to main menu again 
 		break;
 
@@ -210,7 +211,6 @@ void do_job_according_to_number(enOption option) {
 	}
 	
 }
-
 void start()
 {
 	system("cls");
@@ -231,6 +231,7 @@ void start()
 	
 
 }
+////////////////////////////////////////////////////////////////////////////////////////////////
 
 int main() {
 	start();
