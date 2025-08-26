@@ -280,6 +280,25 @@ vector<stdata> update(vector<stdata>& AlldataFromVector, stdata& FilledDate_Clie
 }
 
 
+void account_is_exist(string account_numberFromUser) {
+	cout << "\nclient with account number " << account_numberFromUser << " is exist!\n";
+	cout << "\a";
+}
+
+
+void add_new_client_to_file(vector<stdata>& all_data_from_file_in_vector) {
+
+	vector <string> NewLine;
+	for (stdata& d : all_data_from_file_in_vector) {
+
+		string line = convert_stdata_into_single_line(d);
+		NewLine.push_back(line);
+	}
+
+	edit_file(NewLine);
+}
+
+
 //option [2]//////
 void add_client(vector<stdata> &all_data_from_file_in_vector) {
 	
@@ -288,48 +307,80 @@ void add_client(vector<stdata> &all_data_from_file_in_vector) {
 	string account_numberFromUser =" "; 
 	stdata Client_data;
 
+	
+	//char choice = 'Y';
+	//do {
 
-	//all_data_from_file_in_vector = Vector_have_all_data(path); // make copy of all data into vector to edit it 
+		
 
-	char choice = 'Y';
+	//	// if the check == true then the account number exist and ask the user to enter another one
+	//	while (check_the_account_number(all_data_from_file_in_vector, account_numberFromUser, Client_data) != false) {
+
+	//		cout << "\nthe account number " << "[ " << account_numberFromUser << " ]" << " is exist!, ";
+	//		cout << "\a";
+	//		account_numberFromUser = read_string("enter correct account number again : ");
+	//	}
+
+	//	/// if the account number isn't exist 
+	//	cout << "\n________________________\n";
+	//	cout << endl;
+	//	Client_data = fill_data(account_numberFromUser); // fill data into empty stdata
+
+
+	//	string new_client_line = convert_stdata_into_single_line(Client_data); // convert the data into single line(New client)
+
+	//	vector<string> Nlines_of_data; // empty vector to push the existing data with new data also
+
+	//	for (stdata& d : all_data_from_file_in_vector) {
+	//		string record = convert_stdata_into_single_line(d); // convert struct into line 
+	//		Nlines_of_data.push_back(record); // push lines of data (in empty vector )
+	//	}
+
+	//	Nlines_of_data.push_back(new_client_line); // push the new client into file 
+
+	//	edit_file(Nlines_of_data); // write the new data with update
+
+
+
+
+	//	cout << "\ndata successfully added,do you want to add another clients [y],[n]? : ";
+	//	choice = choice_y_n();
+
+	//} while (choice == 'Y');
+
+	bool is_account_exist = false; 
+
+	vector<stdata> NewData;
+	NewData = all_data_from_file_in_vector; // make copy of struct 
+
+	// if account number isn't exist , then add new client 
+	cout << endl;
 	do {
 
-		account_numberFromUser = read_string("\n\nenter account number: ");
+		account_numberFromUser = read_string("enter account number: "); // enter account number 
 
-		// if the check == true then the account number exist and ask the user to enter another one
-		while (check_the_account_number(all_data_from_file_in_vector, account_numberFromUser, Client_data) != false) {
+		// if the account isn't exist 
+		if ((is_account_exist =check_the_account_number(all_data_from_file_in_vector, account_numberFromUser, Client_data)!=true)) {
 
-			cout << "\nthe account number " << "[ " << account_numberFromUser << " ]" << " is exist!, ";
-			cout << "\a";
-			account_numberFromUser = read_string("enter correct account number again : ");
+			Client_data = fill_data(account_numberFromUser); // fill data by user(stdata) 
+
+			
+			NewData.push_back(Client_data);
+
+			all_data_from_file_in_vector = NewData;
+			
+			add_new_client_to_file(all_data_from_file_in_vector);
+			
+		}
+		else {
+			is_account_exist = true;
+			account_is_exist(account_numberFromUser);
+			cout << "\nenter another account number, ";
 		}
 
-		/// if the account number isn't exist 
-		cout << "\n________________________\n";
-		cout << endl;
-		Client_data = fill_data(account_numberFromUser); // fill data into empty stdata
+	} while (is_account_exist == true);
 
 
-		string new_client_line = convert_stdata_into_single_line(Client_data); // convert the data into single line(New client)
-
-		vector<string> Nlines_of_data; // empty vector to push the existing data with new data also
-
-		for (stdata& d : all_data_from_file_in_vector) {
-			string record = convert_stdata_into_single_line(d); // convert struct into line 
-			Nlines_of_data.push_back(record); // push lines of data (in empty vector )
-		}
-
-		Nlines_of_data.push_back(new_client_line); // push the new client into file 
-
-		edit_file(Nlines_of_data); // write the new data with update
-
-
-
-
-		cout << "\ndata successfully added,do you want to add another clients [y],[n]? : ";
-		choice = choice_y_n();
-
-	} while (choice == 'Y');
 
 
 }

@@ -2,11 +2,11 @@
 E:\projects\my library\logic_stuff.h(117,14): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'project%201.cpp')
   
-E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\project 1\project 1.cpp(67,36): warning C4267: '=': conversion from 'size_t' to 'short', possible loss of data
-E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\project 1\project 1.cpp(174,26): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\project 1\project 1.cpp(65,36): warning C4267: '=': conversion from 'size_t' to 'short', possible loss of data
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\project 1\project 1.cpp(172,26): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
   Generating code
-  1 of 383 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+  45 of 398 functions (11.3%) were compiled, the rest were copied from previous compilation.
+    14 functions were new in current compilation
+    71 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   project 1.vcxproj -> E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\project 1\x64\Release\project 1.exe
