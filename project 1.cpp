@@ -17,6 +17,7 @@ struct stdata
 	string phone = " ";
 	string account_balance = " ";
 	bool mark_for_delete = false;
+	
 };
 enum enOption{ none =0,showClientList=1 , addNewClient=2 ,deleteClient=3 ,updateClient=4 ,Exit=6 };
 const string path = "local db.text";
@@ -198,7 +199,7 @@ void edit_file(vector <string> &lines_of_data) {
 
 }
 
-char choice_add_new_or_not() {
+char choice_y_n() {
 	char c = ' ';
 	cin >> c;
 	 c=toupper(c);
@@ -250,7 +251,7 @@ void add_client(vector<stdata> &all_data_from_file_in_vector) {
 		edit_file(Nlines_of_data); // write the new data with update
 
 		cout << "\ndata successfully added,do you want to add another clients [y],[n]? : ";
-		choice = choice_add_new_or_not();
+		choice = choice_y_n();
 
 	} while (choice == 'Y');
 
@@ -305,7 +306,7 @@ void delete_client(vector<stdata> &all_data_from_file_in_vector) {
 			cout << "\n_________________________________________________\n";
 
 			cout << "\ndo you want to remove this client record [y],[n]: ";
-			choice = choice_add_new_or_not(); // to input option 
+			choice = choice_y_n(); // to input option 
 			if (choice == 'Y')
 			{
 				
@@ -355,11 +356,85 @@ void delete_client(vector<stdata> &all_data_from_file_in_vector) {
 
 }
 
+vector<stdata> update_clientJob(vector<stdata>& AlldataFromVector, stdata &FilledDate_Client_to_update, string account_number_to_update) {
+
+	vector<stdata> Edit_the_orignail_data;
+	FilledDate_Client_to_update.account_number = account_number_to_update; // new data with account number 
+	for (stdata& Origninal_data : AlldataFromVector) {
+		if (Origninal_data.account_number == FilledDate_Client_to_update.account_number) {
+			
+			Edit_the_orignail_data.push_back(FilledDate_Client_to_update);//push new data only
+			
+		}
+		else {
+			Edit_the_orignail_data.push_back(Origninal_data); 
+		}
+	}
+	return Edit_the_orignail_data;
+}
+
+
+// option[4] ///
+void update_client(vector<stdata>& all_data_from_file_in_vector) {
+
+	cout << "\n_________________________________________________\n\n\n";
+	cout << "\t update client\n";
+	cout << "\n_________________________________________________\n";
+
+
+	string account_numberFromUser = " ";
+	stdata Client_data;
+	char choice = ' ';
+	bool is_account_number_found = false;
+	do {
+		screen_color(black);
+
+	account_numberFromUser = read_string("\nenter account number you want to update: ");
+	if ((is_account_number_found = check_the_account_number(all_data_from_file_in_vector, account_numberFromUser, Client_data)) == true)
+	{
+		cout << "\nthe following are the client details:\n";
+		print_header();//print header
+		printStruct(Client_data); // print details
+
+		cout << "\n____________________________________________________________\n";
+		cout << "do you want to update this client data [y],[n]: ";
+		choice = choice_y_n();
+
+		if (choice == 'Y') { // user want to update
+			cout << "\n\nenter new data to update the current client data:\n";
+
+			Client_data = fill_data(account_numberFromUser); // fill the new data
+
+			//update the vector of data 
+			all_data_from_file_in_vector=update_clientJob(all_data_from_file_in_vector, Client_data, account_numberFromUser);
+
+			vector<string>New_lines_to_push_in_file; //push old lines with updated line 
+			for (const stdata& Edited_data : all_data_from_file_in_vector) {
+
+				string Nline_of_data = convert_stdata_into_single_line(Edited_data); // convert struct into line
+				New_lines_to_push_in_file.push_back(Nline_of_data);
+			}
+			
+			//update the file 
+			edit_file(New_lines_to_push_in_file);
+
+			cout << "\nthe user with account number: " << account_numberFromUser << " data updated successfully!\n";
+
+		}
+
+	}
+	else {
+		cout << "\a";
+		cout << "\nthis account number isn't exist!\n";
+		screen_color(red);
+	}
+
+
+	} while (is_account_number_found != true);
 
 
 
-
-
+}
 
 
 /// main menu stuff ////////////////////////////////////////////////////////////////
@@ -429,6 +504,11 @@ void do_job_according_to_number(enOption option) {
 
 	case enOption::deleteClient:
 		delete_client(all_data_from_file_in_vector); // option [3]
+		back_to_menu(); // to back to main menu again 
+		break;
+
+	case enOption::updateClient:
+		update_client(all_data_from_file_in_vector); //option [4]
 		back_to_menu(); // to back to main menu again 
 		break;
 
