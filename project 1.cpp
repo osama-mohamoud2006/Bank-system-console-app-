@@ -247,7 +247,6 @@ vector <string> New_lines_to_push_in_file_after_delete( vector<stdata>& all_data
 	return remaining_clients_after_delete;
 }
 
-
 vector<string> update_before_push_into_file(vector<stdata>& all_data_from_file_in_vector) {
 
 	vector<string>New_lines_to_push_in_file_after_update; //push old lines with updated line 
@@ -262,7 +261,7 @@ vector<string> update_before_push_into_file(vector<stdata>& all_data_from_file_i
 
 }
 
-//the main logic of update_client& add_client function 
+//the main logic of update_client function 
 vector<stdata> update(vector<stdata>& AlldataFromVector, stdata& FilledDate_Client_to_update, string account_number_to_update) {
 
 	vector<stdata> Edit_the_orignail_data;
@@ -279,7 +278,6 @@ vector<stdata> update(vector<stdata>& AlldataFromVector, stdata& FilledDate_Clie
 	}
 	return Edit_the_orignail_data;
 }
-
 
 
 //option [2]//////
