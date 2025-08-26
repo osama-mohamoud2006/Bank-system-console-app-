@@ -5,8 +5,8 @@ E:\projects\my library\logic_stuff.h(117,14): warning C4267: 'initializing': con
 E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\project 1\project 1.cpp(65,36): warning C4267: '=': conversion from 'size_t' to 'short', possible loss of data
 E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\project 1\project 1.cpp(172,26): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
   Generating code
-  6 of 398 functions ( 1.5%) were compiled, the rest were copied from previous compilation.
+  2 of 398 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    10 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   project 1.vcxproj -> E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\project 1\x64\Release\project 1.exe

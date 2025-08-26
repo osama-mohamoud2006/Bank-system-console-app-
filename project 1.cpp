@@ -314,7 +314,7 @@ void add_client(vector<stdata> &all_data_from_file_in_vector) {
 	cout << endl;
 	do {
 
-		account_numberFromUser = read_string("enter account number: "); // enter account number 
+		account_numberFromUser = read_string("\nenter account number: "); // enter account number 
 
 		// if the account exists 
 		while (check_the_account_number(all_data_from_file_in_vector, account_numberFromUser, Client_data) == true) {
@@ -328,7 +328,8 @@ void add_client(vector<stdata> &all_data_from_file_in_vector) {
 		cout << "\n_______________________________________________\n";
 
 		// if the account isn't existing then it will get out from while loop 
-
+		cout << "\nFill user data:";
+		cout << "\n__________________________________________\n";
 			Client_data = fill_data(account_numberFromUser); // fill data by user(stdata) 
 
 			NewData.push_back(Client_data); // push the new data into struct 
@@ -336,8 +337,10 @@ void add_client(vector<stdata> &all_data_from_file_in_vector) {
 			all_data_from_file_in_vector = NewData; // make the original vector have updated data 
 			
 			add_new_client_to_file(all_data_from_file_in_vector);// send the new vector with new lines to add in file 
-			
-			cout << "\nthe client addedd successfully!\n";
+
+			cout << "\n________________________________\n";
+			cout << "the client addedd successfully!\n";
+			cout << "________________________________\n";
 
 		cout << "\ndo you want to add another client [y],[n]: ";
 		choice = choice_y_n(); // to input option 
@@ -347,7 +350,7 @@ void add_client(vector<stdata> &all_data_from_file_in_vector) {
 
 }
 
-// mark tthe record to be deleted 
+// mark the record to be deleted 
 bool mark_for_delete(vector<stdata>& AlldataFromVector, string Client_to_delete) {
 	stdata client;
 	client.account_number = Client_to_delete;
