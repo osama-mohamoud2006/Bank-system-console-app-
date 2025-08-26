@@ -36,6 +36,13 @@ void print_menu_option(string option_name) {
 }
 //////////////////////////////////////////////////////////////////////////////////
 
+void the_account_isnot_exist() {
+	cout << "\a";
+	cout << "\nthis account number isn't exist!\n";
+	screen_color(red);
+	screen_color(black);
+}
+
 stdata fill_data(string account_number) {
 	stdata data;
 	data.account_number = account_number;
@@ -147,6 +154,15 @@ void printStruct(const stdata& data)
 	cout << "+---------------+----------+--------------------+---------------+------------+" << endl;
 }
 
+//print data for 1 client only 
+void print_client_details(stdata Client_data) {
+	cout << "\nthe following are the account details :\n";
+	cout << "____________________________\n";
+	print_header();
+	printStruct(Client_data); // to print the client data 
+	cout << "\n_________________________________________________\n";
+}
+
 // option [1] in main menu 
 void show_client_list(vector<stdata> &vprint) {
 
@@ -211,6 +227,61 @@ char choice_y_n() {
 	 return c; 
 }
 
+vector <string> New_lines_to_push_in_file_after_delete( vector<stdata>& all_data_from_file_in_vector, stdata client_data)
+{
+
+	vector<string> remaining_clients_after_delete; //(empty string) to save the data again without marked for delete 
+
+	for (stdata& client_data : all_data_from_file_in_vector) { // to find the marked for delete and ignore it in new push 
+
+		if (client_data.mark_for_delete == false)
+		{
+			string line_of_data = convert_stdata_into_single_line(client_data); // take the sttruct and convert it into line 
+
+			remaining_clients_after_delete.push_back(line_of_data);//push All the data(lines) without marked for delete
+
+		}
+
+
+	}
+	return remaining_clients_after_delete;
+}
+
+
+vector<string> update_before_push_into_file(vector<stdata>& all_data_from_file_in_vector) {
+
+	vector<string>New_lines_to_push_in_file_after_update; //push old lines with updated line 
+
+	for (const stdata& Edited_data : all_data_from_file_in_vector) {
+
+		string Nline_of_data = convert_stdata_into_single_line(Edited_data); // convert struct into line
+		New_lines_to_push_in_file_after_update.push_back(Nline_of_data);
+	}
+
+	return New_lines_to_push_in_file_after_update;
+
+}
+
+//the main logic of update_client& add_client function 
+vector<stdata> update(vector<stdata>& AlldataFromVector, stdata& FilledDate_Client_to_update, string account_number_to_update) {
+
+	vector<stdata> Edit_the_orignail_data;
+	FilledDate_Client_to_update.account_number = account_number_to_update; // new data with account number 
+	for (stdata& Origninal_data : AlldataFromVector) {
+		if (Origninal_data.account_number == FilledDate_Client_to_update.account_number) {
+
+			Edit_the_orignail_data.push_back(FilledDate_Client_to_update);//push new data only
+
+		}
+		else {
+			Edit_the_orignail_data.push_back(Origninal_data);
+		}
+	}
+	return Edit_the_orignail_data;
+}
+
+
+
 //option [2]//////
 void add_client(vector<stdata> &all_data_from_file_in_vector) {
 	
@@ -218,8 +289,7 @@ void add_client(vector<stdata> &all_data_from_file_in_vector) {
 	
 	string account_numberFromUser =" "; 
 	stdata Client_data;
-	
-	
+
 
 	//all_data_from_file_in_vector = Vector_have_all_data(path); // make copy of all data into vector to edit it 
 
@@ -241,25 +311,27 @@ void add_client(vector<stdata> &all_data_from_file_in_vector) {
 		cout << endl;
 		Client_data = fill_data(account_numberFromUser); // fill data into empty stdata
 
-		//all_data_from_file_in_vector.push_back(Client_data); // to refresh the vector of data 
 
+		string new_client_line = convert_stdata_into_single_line(Client_data); // convert the data into single line(New client)
 
-		string new_client_line = convert_stdata_into_single_line(Client_data); // convert the data into single line
-		vector<string> Nlines_of_data; // empth vector to push the existing data with new data also
+		vector<string> Nlines_of_data; // empty vector to push the existing data with new data also
 
 		for (stdata& d : all_data_from_file_in_vector) {
 			string record = convert_stdata_into_single_line(d); // convert struct into line 
 			Nlines_of_data.push_back(record); // push lines of data (in empty vector )
 		}
+
 		Nlines_of_data.push_back(new_client_line); // push the new client into file 
 
 		edit_file(Nlines_of_data); // write the new data with update
+
+
+
 
 		cout << "\ndata successfully added,do you want to add another clients [y],[n]? : ";
 		choice = choice_y_n();
 
 	} while (choice == 'Y');
-
 
 
 }
@@ -286,11 +358,10 @@ bool mark_for_delete(vector<stdata>& AlldataFromVector, string Client_to_delete)
 void delete_client(vector<stdata> &all_data_from_file_in_vector) {
 
 
-	print_menu_option("delete client");
-	//vector<stdata> all_data_from_file_in_vector;
+	print_menu_option("delete client"); // print the menu that indicating i delete client 
+	
 	string account_numberFromUser = " ";
 	stdata Client_data;
-	//all_data_from_file_in_vector = Vector_have_all_data(path); // make copy of all data into vector to edit it 
 	char choice = ' ';
 	bool is_account_number_found = false;
 
@@ -301,38 +372,22 @@ void delete_client(vector<stdata> &all_data_from_file_in_vector) {
 
 		if ((is_account_number_found=check_the_account_number(all_data_from_file_in_vector, account_numberFromUser, Client_data) == true))
 		{
-		
-			cout << "\nthe following are the account details :\n";
-			cout << "____________________________\n";
-			print_header();
-			printStruct(Client_data); // to print the client data 
-			cout << "\n_________________________________________________\n";
+	
+			print_client_details(Client_data); // print client details :)
 
 			cout << "\ndo you want to remove this client record [y],[n]: ";
 			choice = choice_y_n(); // to input option 
 			if (choice == 'Y')
 			{
 				
-
 				if (mark_for_delete(all_data_from_file_in_vector, Client_data.account_number)==true) {
 
 					vector<string> remaining_clients_after_delete; //(empty string) to save the data again without marked for delete 
 				
-
-					for (stdata& client_data : all_data_from_file_in_vector) { // to find the marked for delete and ignore it in new push 
-
-						if (client_data.mark_for_delete == false)
-						{
-							string line_of_data = convert_stdata_into_single_line(client_data); // take the sttruct and convert it into line 
-
-							remaining_clients_after_delete.push_back(line_of_data);//push All the data(lines) without marked for delete
-							 
-						}
-						
-					}
-
-					
+					// the logic of delete 
+					remaining_clients_after_delete = New_lines_to_push_in_file_after_delete(all_data_from_file_in_vector, Client_data);
 					edit_file(remaining_clients_after_delete);//edited file takes only lines of string 
+
 					cout << "\nclient data deleted successfully!\n";
 					break; // exit the loop as i deleted 
 				}
@@ -347,9 +402,10 @@ void delete_client(vector<stdata> &all_data_from_file_in_vector) {
 
 
 		else {
-			cout << "\nthis account number " << "[ " << account_numberFromUser << " ] " << "isn't exist! " << endl;
+			the_account_isnot_exist();
+			//cout << "\nthis account number " << "[ " << account_numberFromUser << " ] " << "isn't exist! " << endl;
 
-			cout << "\a";
+			
 		}
 
 	} while (is_account_number_found != true);
@@ -359,26 +415,7 @@ void delete_client(vector<stdata> &all_data_from_file_in_vector) {
 
 }
 
-//the main logic of update_client function 
-vector<stdata> update_clientJob(vector<stdata>& AlldataFromVector, stdata &FilledDate_Client_to_update, string account_number_to_update) {
-
-	vector<stdata> Edit_the_orignail_data;
-	FilledDate_Client_to_update.account_number = account_number_to_update; // new data with account number 
-	for (stdata& Origninal_data : AlldataFromVector) {
-		if (Origninal_data.account_number == FilledDate_Client_to_update.account_number) {
-			
-			Edit_the_orignail_data.push_back(FilledDate_Client_to_update);//push new data only
-			
-		}
-		else {
-			Edit_the_orignail_data.push_back(Origninal_data); 
-		}
-	}
-	return Edit_the_orignail_data;
-}
-
-
-// option[4] ///
+////// option[4] //////
 void update_client(vector<stdata>& all_data_from_file_in_vector) {
 
 	print_menu_option(" update client");
@@ -393,31 +430,27 @@ void update_client(vector<stdata>& all_data_from_file_in_vector) {
 	account_numberFromUser = read_string("\nenter account number you want to update: ");
 	if ((is_account_number_found = check_the_account_number(all_data_from_file_in_vector, account_numberFromUser, Client_data)) == true)
 	{
-		cout << "\nthe following are the client details:\n";
-		print_header();//print header
-		printStruct(Client_data); // print details
 
-		cout << "\n____________________________________________________________\n";
+		print_client_details(Client_data);
+		
 		cout << "do you want to update this client data [y],[n]: ";
 		choice = choice_y_n();
 
 		if (choice == 'Y') { // user want to update
+
 			cout << "\n\nenter new data to update the current client data:\n";
 
 			Client_data = fill_data(account_numberFromUser); // fill the new data
 
-			//update the vector of data 
-			all_data_from_file_in_vector=update_clientJob(all_data_from_file_in_vector, Client_data, account_numberFromUser);
+			//update the vector of data (the main logic ) 
+			all_data_from_file_in_vector=update(all_data_from_file_in_vector, Client_data, account_numberFromUser);
 
-			vector<string>New_lines_to_push_in_file; //push old lines with updated line 
-			for (const stdata& Edited_data : all_data_from_file_in_vector) {
-
-				string Nline_of_data = convert_stdata_into_single_line(Edited_data); // convert struct into line
-				New_lines_to_push_in_file.push_back(Nline_of_data);
-			}
+			vector<string>New_lines_to_push_in_file_after_delete; //push old lines with updated line 
+		     
+			New_lines_to_push_in_file_after_delete = update_before_push_into_file(all_data_from_file_in_vector);
 			
 			//update the file 
-			edit_file(New_lines_to_push_in_file);
+			edit_file(New_lines_to_push_in_file_after_delete);
 
 			cout << "\nthe client with account number: " << account_numberFromUser << " his data was updated successfully!\n";
 
@@ -425,9 +458,7 @@ void update_client(vector<stdata>& all_data_from_file_in_vector) {
 
 	}
 	else {
-		cout << "\a";
-		cout << "\nthis account number isn't exist!\n";
-		screen_color(red);
+		the_account_isnot_exist();
 	}
 
 
@@ -451,15 +482,11 @@ void find_client(vector<stdata>& all_data_from_file_in_vector) {
 		account_numberFromUser = read_string("\nenter account number you want to Find: ");
 		if ((is_account_number_found = check_the_account_number(all_data_from_file_in_vector, account_numberFromUser, Client_data)) == true)
 		{
-			cout << "\nthe following are the client details:\n";
-			print_header();//print header
-			printStruct(Client_data); // print details
+			print_client_details(Client_data);
 
 		}
 		else {
-			cout << "\a";
-			cout << "\nthis account number isn't exist!\n";
-			screen_color(red);
+			the_account_isnot_exist();
 		}
 
 
@@ -468,7 +495,6 @@ void find_client(vector<stdata>& all_data_from_file_in_vector) {
 
 
 }
-
 
 /// main menu stuff ////////////////////////////////////////////////////////////////
 
