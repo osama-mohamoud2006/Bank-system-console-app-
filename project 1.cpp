@@ -142,10 +142,10 @@ void printStruct(const stdata& data)
 }
 
 // option [1] in main menu 
-void show_client_list() {
+void show_client_list(vector<stdata> &vprint) {
 
-	vector<stdata> vprint;
-	vprint = Vector_have_all_data(path); // bring all data from file to print 
+	
+	//vprint = Vector_have_all_data(path); // bring all data from file to print 
 
 	print_header(vprint.size()); // print header
 	for (const stdata& client : vprint) {
@@ -158,10 +158,10 @@ void show_client_list() {
 }
 
 // check if the account number (entered by user) is exist in file or not 
-bool check_the_account_number(vector<stdata> search_account_number,string account_number, stdata &client) {
+bool check_the_account_number(vector<stdata> &search_account_number,string account_numberFromUser, stdata &client) {
 	stdata data; 
-	data.account_number = account_number;
-	search_account_number = Vector_have_all_data(path);
+	data.account_number = account_numberFromUser;
+	//search_account_number = Vector_have_all_data(path);
 
 	for (stdata &vd : search_account_number) {
 		if (vd.account_number == data.account_number) {
@@ -206,34 +206,34 @@ char choice_add_new_or_not() {
 }
 
 //option [2]//////
-void add_client() {
+void add_client(vector<stdata> &all_data_from_file_in_vector) {
 	cout << "\n_________________________________________________\n\n\n";
 	cout << "\t adding new client\n";
 	cout << "\n_________________________________________________\n";
-	string account_number =" "; 
+	string account_numberFromUser =" "; 
 	stdata Client_data;
 	
-	vector<stdata> all_data_from_file_in_vector;
+	
 
-	all_data_from_file_in_vector = Vector_have_all_data(path); // make copy of all data into vector to edit it 
+	//all_data_from_file_in_vector = Vector_have_all_data(path); // make copy of all data into vector to edit it 
 
 	char choice = 'Y';
 	do {
 
-		account_number = read_string("\n\nenter account number: ");
+		account_numberFromUser = read_string("\n\nenter account number: ");
 
 		// if the check == true then the account number exist and ask the user to enter another one
-		while (check_the_account_number(all_data_from_file_in_vector,account_number, Client_data) != false) {
+		while (check_the_account_number(all_data_from_file_in_vector, account_numberFromUser, Client_data) != false) {
 
-			cout << "\nthe account number " << "[ " << account_number << " ]" << " is exist!, ";
+			cout << "\nthe account number " << "[ " << account_numberFromUser << " ]" << " is exist!, ";
 			cout << "\a";
-			account_number = read_string("enter correct account number again : ");
+			account_numberFromUser = read_string("enter correct account number again : ");
 		}
 
 		/// if the account number isn't exist 
 		cout << "\n________________________\n";
 		cout << endl;
-		Client_data = fill_data(account_number); // fill data into empty stdata
+		Client_data = fill_data(account_numberFromUser); // fill data into empty stdata
 
 		string new_client_line = convert_stdata_into_single_line(Client_data); // convert the data into single line
 
@@ -262,9 +262,10 @@ void add_client() {
 bool mark_for_delete(vector<stdata>& AlldataFromVector, string Client_to_delete) {
 	stdata client;
 	client.account_number = Client_to_delete;
+
 	for (stdata& Vdata : AlldataFromVector)
 	{
-		// sorry for var  names , .account_number (struct) - account number(string)
+		//  var  names , .account_number (struct) - account number(string)
 		if (Vdata.account_number == client.account_number) {
 			//cout << client.account_number_by_user << endl; //test only
 			Vdata.mark_for_delete = true; // edit the original data 
@@ -276,32 +277,32 @@ bool mark_for_delete(vector<stdata>& AlldataFromVector, string Client_to_delete)
 }
 
 // option [3]/////
-void delete_client() {
+void delete_client(vector<stdata> &all_data_from_file_in_vector) {
 
 	cout << "\n_________________________________________________\n\n\n";
 	cout << "\t delete client\n";
 	cout << "\n_________________________________________________\n";
 
-	vector<stdata> all_data_from_file_in_vector;
-	string account_number = " ";
+	//vector<stdata> all_data_from_file_in_vector;
+	string account_numberFromUser = " ";
 	stdata Client_data;
-	all_data_from_file_in_vector = Vector_have_all_data(path); // make copy of all data into vector to edit it 
+	//all_data_from_file_in_vector = Vector_have_all_data(path); // make copy of all data into vector to edit it 
 	char choice = ' ';
 	bool is_account_number_found = false;
 
 
 	do {
 
-		account_number = read_string("\n\nenter account number: "); // read account number from user 
+		account_numberFromUser = read_string("\n\nenter account number: "); // read account number from user 
 
-		if ((is_account_number_found=check_the_account_number(all_data_from_file_in_vector, account_number, Client_data) == true))
+		if ((is_account_number_found=check_the_account_number(all_data_from_file_in_vector, account_numberFromUser, Client_data) == true))
 		{
 		
 			cout << "\nthe following are the account details :\n";
 			cout << "____________________________\n";
 			print_header();
 			printStruct(Client_data); // to print the client data 
-			cout << "\n____________________________\n";
+			cout << "\n_________________________________________________\n";
 
 			cout << "\ndo you want to remove this client record [y],[n]: ";
 			choice = choice_add_new_or_not(); // to input option 
@@ -342,7 +343,7 @@ void delete_client() {
 
 
 		else {
-			cout << "\nthis account number " << "[ " << account_number << " ] " << "isn't exist! " << endl;
+			cout << "\nthis account number " << "[ " << account_numberFromUser << " ] " << "isn't exist! " << endl;
 
 			cout << "\a";
 		}
@@ -411,21 +412,23 @@ void exit_screen() {
 }
 void do_job_according_to_number(enOption option) {
 	system("cls");
-	
+
+	//the vector that have all data as struct 
+	vector<stdata> all_data_from_file_in_vector = Vector_have_all_data(path); // call this function once instead  of calling it in every option implementation 
 	switch (option) {
 
 	case enOption::showClientList:
-		show_client_list(); // option[1]
+		show_client_list(all_data_from_file_in_vector); // option[1]
 		back_to_menu(); // to back to main menu again 
 		break;
 
 	case enOption::addNewClient:
-		add_client(); // option[2]
+		add_client(all_data_from_file_in_vector); // option[2]
 		back_to_menu(); // to back to main menu again 
 		break;
 
 	case enOption::deleteClient:
-		delete_client(); // option [3]
+		delete_client(all_data_from_file_in_vector); // option [3]
 		back_to_menu(); // to back to main menu again 
 		break;
 
