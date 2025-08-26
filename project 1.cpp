@@ -437,7 +437,6 @@ void update_client(vector<stdata>& all_data_from_file_in_vector) {
 
 }
 
-
 //option[5]
 void find_client(vector<stdata>& all_data_from_file_in_vector) {
 
