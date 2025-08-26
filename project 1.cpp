@@ -29,6 +29,11 @@ void  back_to_menu() {
 	system("pause>0");
 
 }
+void print_menu_option(string option_name) {
+	cout << "\n_________________________________________________\n\n\n";
+	cout << "\t" << option_name << "\n";
+	cout << "\n_________________________________________________\n";
+}
 //////////////////////////////////////////////////////////////////////////////////
 
 stdata fill_data(string account_number) {
@@ -208,9 +213,9 @@ char choice_y_n() {
 
 //option [2]//////
 void add_client(vector<stdata> &all_data_from_file_in_vector) {
-	cout << "\n_________________________________________________\n\n\n";
-	cout << "\t adding new client\n";
-	cout << "\n_________________________________________________\n";
+	
+	print_menu_option("adding new client");
+	
 	string account_numberFromUser =" "; 
 	stdata Client_data;
 	
@@ -236,10 +241,10 @@ void add_client(vector<stdata> &all_data_from_file_in_vector) {
 		cout << endl;
 		Client_data = fill_data(account_numberFromUser); // fill data into empty stdata
 
+		//all_data_from_file_in_vector.push_back(Client_data); // to refresh the vector of data 
+
+
 		string new_client_line = convert_stdata_into_single_line(Client_data); // convert the data into single line
-
-		
-
 		vector<string> Nlines_of_data; // empth vector to push the existing data with new data also
 
 		for (stdata& d : all_data_from_file_in_vector) {
@@ -280,10 +285,8 @@ bool mark_for_delete(vector<stdata>& AlldataFromVector, string Client_to_delete)
 // option [3]/////
 void delete_client(vector<stdata> &all_data_from_file_in_vector) {
 
-	cout << "\n_________________________________________________\n\n\n";
-	cout << "\t delete client\n";
-	cout << "\n_________________________________________________\n";
 
+	print_menu_option("delete client");
 	//vector<stdata> all_data_from_file_in_vector;
 	string account_numberFromUser = " ";
 	stdata Client_data;
@@ -378,10 +381,7 @@ vector<stdata> update_clientJob(vector<stdata>& AlldataFromVector, stdata &Fille
 // option[4] ///
 void update_client(vector<stdata>& all_data_from_file_in_vector) {
 
-	cout << "\n_________________________________________________\n\n\n";
-	cout << "\t update client\n";
-	cout << "\n_________________________________________________\n";
-
+	print_menu_option(" update client");
 
 	string account_numberFromUser = " ";
 	stdata Client_data;
@@ -440,9 +440,7 @@ void update_client(vector<stdata>& all_data_from_file_in_vector) {
 //option[5]
 void find_client(vector<stdata>& all_data_from_file_in_vector) {
 
-	cout << "\n_________________________________________________\n\n\n";
-	cout << "\t Find client\n";
-	cout << "\n_________________________________________________\n";
+	print_menu_option("Find client");
 
 	string account_numberFromUser = " ";
 	stdata Client_data;
