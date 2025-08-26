@@ -19,7 +19,7 @@ struct stdata
 	bool mark_for_delete = false;
 	
 };
-enum enOption{ none =0,showClientList=1 , addNewClient=2 ,deleteClient=3 ,updateClient=4 ,Exit=6 };
+enum enOption{ none =0,showClientList=1 , addNewClient=2 ,deleteClient=3 ,updateClient=4 ,searchClient=5,Exit=6 };
 const string path = "local db.text";
 const string delmi = "#//#";
 void  back_to_menu() {
@@ -356,6 +356,7 @@ void delete_client(vector<stdata> &all_data_from_file_in_vector) {
 
 }
 
+//the main logic of update_client function 
 vector<stdata> update_clientJob(vector<stdata>& AlldataFromVector, stdata &FilledDate_Client_to_update, string account_number_to_update) {
 
 	vector<stdata> Edit_the_orignail_data;
@@ -418,7 +419,7 @@ void update_client(vector<stdata>& all_data_from_file_in_vector) {
 			//update the file 
 			edit_file(New_lines_to_push_in_file);
 
-			cout << "\nthe user with account number: " << account_numberFromUser << " data updated successfully!\n";
+			cout << "\nthe client with account number: " << account_numberFromUser << " his data was updated successfully!\n";
 
 		}
 
@@ -428,6 +429,41 @@ void update_client(vector<stdata>& all_data_from_file_in_vector) {
 		cout << "\nthis account number isn't exist!\n";
 		screen_color(red);
 	}
+
+
+	} while (is_account_number_found != true);
+
+
+
+}
+
+
+//option[5]
+void find_client(vector<stdata>& all_data_from_file_in_vector) {
+
+	cout << "\n_________________________________________________\n\n\n";
+	cout << "\t Find client\n";
+	cout << "\n_________________________________________________\n";
+
+	string account_numberFromUser = " ";
+	stdata Client_data;
+	bool is_account_number_found = false;
+	do {
+		screen_color(black);
+
+		account_numberFromUser = read_string("\nenter account number you want to Find: ");
+		if ((is_account_number_found = check_the_account_number(all_data_from_file_in_vector, account_numberFromUser, Client_data)) == true)
+		{
+			cout << "\nthe following are the client details:\n";
+			print_header();//print header
+			printStruct(Client_data); // print details
+
+		}
+		else {
+			cout << "\a";
+			cout << "\nthis account number isn't exist!\n";
+			screen_color(red);
+		}
 
 
 	} while (is_account_number_found != true);
@@ -512,7 +548,12 @@ void do_job_according_to_number(enOption option) {
 		back_to_menu(); // to back to main menu again 
 		break;
 
-	case enOption::Exit:
+	case enOption::searchClient:
+		find_client(all_data_from_file_in_vector); // option [5]
+		back_to_menu(); // to back to main menu again 
+		break;
+
+	case enOption::Exit: // option[6]
 		exit_screen();
 		break;
 
