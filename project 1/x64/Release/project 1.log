@@ -2,10 +2,11 @@
 E:\projects\my library\logic_stuff.h(117,14): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'project%201.cpp')
   
-E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\project 1\project 1.cpp(48,36): warning C4267: '=': conversion from 'size_t' to 'short', possible loss of data
-E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\project 1\project 1.cpp(146,26): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\project 1\project 1.cpp(52,36): warning C4267: '=': conversion from 'size_t' to 'short', possible loss of data
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\project 1\project 1.cpp(150,26): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
   Generating code
-  Previous IPDB not found, fall back to full compilation.
-  All 372 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  2 of 389 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    8 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   project 1.vcxproj -> E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\project 1\x64\Release\project 1.exe
