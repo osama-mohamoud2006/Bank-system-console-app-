@@ -1,20 +1,92 @@
-// Project 1 enhanced ver.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iomanip>
 
-int main()
+using namespace std;
+const string ClientsFileName = "local db.text";
+
+void ShowMainMenue();
+
+struct sClient
 {
-    std::cout << "Hello World!\n";
+    string AccountNumber;
+    string PinCode;
+    string Name;
+    string Phone;
+    double AccountBalance;
+    bool MarkForDelete = false;
+};
+
+vector< string> SplitString(string S1, string Delmi= "#//#") {
+    vector<string> vstring;
+    short pos = 0;
+    string sword; 
+
+    while ((pos = S1.find(Delmi)) != string::npos) {
+
+        sword = S1.substr(0, pos);
+        if (sword != "") vstring.push_back(sword);
+
+        S1.erase(0, pos + Delmi.size());
+    }
+
+    if (S1 != "") vstring.push_back(S1);
+
+    return vstring;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+sClient ConvertLinetoRecord(string line, string delmi = "#//#") {
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+    sClient data;
+
+    vector<string> data_of_lines = SplitString(line);
+
+    data.AccountNumber = data_of_lines[0];
+    data.PinCode= data_of_lines[1];
+    data.Name= data_of_lines[2];
+    data.Phone= data_of_lines[3];
+    data.AccountBalance= stod(data_of_lines[4]);
+
+    return data; 
+
+}
+
+string ConvertRecordToLine(sClient Client, string delmi = "#//#") {
+    string ClientLine = " ";
+
+    ClientLine += Client.AccountNumber + delmi;
+    ClientLine+=Client.PinCode + delmi;
+    ClientLine+=Client.Name + delmi;
+    ClientLine +=Client.Phone+ delmi;
+    ClientLine +=to_string(Client.AccountBalance)+ delmi;
+
+    return ClientLine;
+}
+
+bool ClientExistsByAccountNumber(string AccountNumber, string FileName) {
+
+    sClient data; 
+    vector<sClient> Vclients; 
+  
+    fstream read; 
+    read.open(FileName, ios::in); // read mode 
+    if (read.is_open()) {
+
+        string Line;
+
+        while (getline(read, Line)) {
+
+            data= ConvertLinetoRecord(Line);
+
+            if (data.AccountNumber == AccountNumber) {
+                read.close();
+                return true;
+            }
+            Vclients.push_back(data);
+        }
+        read.close();
+    }
+    return false; 
+}
