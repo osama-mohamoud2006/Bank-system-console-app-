@@ -90,3 +90,55 @@ bool ClientExistsByAccountNumber(string AccountNumber, string FileName) {
     }
     return false; 
 }
+
+// for add new client 
+sClient ReadNewClient() {
+
+    sClient data;
+
+    cout << "Enter account number: ";
+    getline(cin >> ws, data.AccountNumber);
+
+    while (ClientExistsByAccountNumber(data.AccountNumber, "local db.text")) {
+
+        cout << "\nClient with [" << data.AccountNumber << "] already exists, Enter another Account Number? ";
+
+        getline(cin >> ws, data.AccountNumber);
+    }
+
+    cout << "Enter PinCode? ";
+    getline(cin, data.PinCode);
+
+    cout << "Enter Name? ";
+    getline(cin, data.Name);
+
+    cout << "Enter Phone? ";
+    getline(cin, data.Phone);
+
+    cout << "Enter AccountBalance? ";
+    cin >> data.AccountBalance;
+
+    return data;
+
+}
+
+//vector of structure that have all data from file 
+vector<sClient> LoadCleintsDataFromFile(string FileName) {
+
+    vector< sClient> VectorOFStructure;
+    fstream read;
+    read.open(FileName, ios::in); // read mode 
+
+    if (read.is_open()) {
+        sClient data;
+        string record = " ";
+
+        while (getline(read, record)) {
+            data = ConvertLinetoRecord(record);
+            VectorOFStructure.push_back(data);
+        }
+        read.close();
+    }
+
+    return VectorOFStructure;
+}
