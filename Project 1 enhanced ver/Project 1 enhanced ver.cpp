@@ -54,13 +54,13 @@ sClient ConvertLinetoRecord(string line, string delmi = "#//#") {
 }
 
 string ConvertRecordToLine(sClient Client, string delmi = "#//#") {
-    string ClientLine = " ";
+    string ClientLine = "";
 
     ClientLine += Client.AccountNumber + delmi;
     ClientLine+=Client.PinCode + delmi;
     ClientLine+=Client.Name + delmi;
     ClientLine +=Client.Phone+ delmi;
-    ClientLine +=to_string(Client.AccountBalance)+ delmi;
+    ClientLine +=to_string(Client.AccountBalance);
 
     return ClientLine;
 }
@@ -316,7 +316,7 @@ bool DeleteClientByAccountNumber(string AccountNumber, vector<sClient>& Vclients
 
             MarkClientForDeleteByAccountNumber(AccountNumber, Vclients);
             SaveCleintsDataToFile(ClientsFileName, Vclients);
-            Vclients = LoadCleintsDataFromFile("ClientsFileName");
+            Vclients = LoadCleintsDataFromFile(ClientsFileName);
             cout << "\n\nClient Deleted Successfully.";
             return true;
         }
