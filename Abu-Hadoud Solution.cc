@@ -255,7 +255,7 @@ bool MarkClientForDeleteByAccountNumber(string AccountNumber, vector<sClient> &v
 
         if (C.AccountNumber == AccountNumber)
         {
-            C.MarkForDelete = true;
+            C.MarkForDelete = true; //جالك قرار ازاله 
             return true;
         }
     }

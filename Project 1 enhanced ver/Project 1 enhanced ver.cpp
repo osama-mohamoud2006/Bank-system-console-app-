@@ -142,3 +142,131 @@ vector<sClient> LoadCleintsDataFromFile(string FileName) {
 
     return VectorOFStructure;
 }
+
+// will use it in show all client menu 
+void PrintClientRecordLine(sClient client) {
+    // print Client  data 
+    cout << "|" << setw(15) << client.AccountNumber;
+    cout << "|" << setw(10) << left << client.PinCode;
+    cout << "|" << setw(40) << left << client.Name;
+    cout << "|" << setw(12) << left << client.Phone;
+    cout << "|" << setw(12) << left << client.AccountBalance;
+}
+
+//option 1 
+void ShowAllClientsScreen() {
+    vector<sClient> Vclient= LoadCleintsDataFromFile(ClientsFileName);
+    cout << "\n\t\t\t\t\tClient List (" << Vclient.size() << ") Client(s).";
+    cout << "\n_______________________________________________________";
+    cout << "_________________________________________\n"
+        << endl;
+
+
+    cout << "| " << left << setw(15) << "Accout Number";
+    cout << "| " << left << setw(10) << "Pin Code";
+    cout << "| " << left << setw(40) << "Client Name";
+    cout << "| " << left << setw(12) << "Phone";
+    cout << "| " << left << setw(12) << "Balance";
+    cout << "\n_______________________________________________________";
+    cout << "_________________________________________\n"
+        << endl;
+
+    if(Vclient.size()==0)  cout << "\t\t\t\tNo Clients Available In the System!";
+
+    else {
+
+        for (const sClient &clientData : Vclient) {
+
+            PrintClientRecordLine(clientData);
+            cout << endl;
+        }
+
+        cout << "\n_______________________________________________________";
+        cout << "_________________________________________\n"
+            << endl;
+    }
+
+}
+
+void PrintClientCard(sClient client) {
+    cout << "\nThe following are the client details:\n";
+    cout << "-----------------------------------";
+    cout << "\nAccout Number: " << client.AccountNumber;
+    cout << "\nPin Code     : " << client.PinCode;
+    cout << "\nName         : " << client.Name;
+    cout << "\nPhone        : " << client.Phone;
+    cout << "\nAccount Balance: " << client.AccountBalance;
+    cout << "\n-----------------------------------\n";
+}
+
+bool FindClientByAccountNumber(string AccountNumber, vector<sClient> Vclients, sClient& client) {
+
+    for (sClient& foundClient : Vclients) {
+
+        if (foundClient.AccountNumber == AccountNumber) {
+
+            client = foundClient;
+            return true; 
+        }
+    }
+    
+    return false; 
+}
+
+// fill to update data 
+sClient ChangeClientRecord(string AccountNumber) {
+
+    sClient client;
+    client.AccountNumber = AccountNumber;
+
+    cout << "\n\nEnter PinCode? ";
+    getline(cin >> ws, client.PinCode);
+
+    cout << "Enter Name? ";
+    getline(cin, client.Name);
+
+    cout << "Enter Phone? ";
+    getline(cin, client.Phone);
+
+    cout << "Enter AccountBalance? ";
+    cin >> client.AccountBalance;
+
+    return client;
+
+}
+
+// the main logic of delete client
+bool MarkClientForDeleteByAccountNumber(string AccountNumber, vector<sClient>& Vclient) {
+
+    for (sClient& c : Vclient) {
+        if (c.AccountNumber == AccountNumber) {
+            c.MarkForDelete = true;
+            return true; 
+        }
+    }
+
+    return false; 
+}
+
+vector<sClient> SaveCleintsDataToFile(string FileName, vector<sClient> Vclients) {
+
+    fstream write;
+    write.open(FileName, ios::out); // write mode 
+
+    string DataLine = " ";
+    if (write.is_open()) {
+
+        for (sClient client : Vclients) {
+
+            if (client.MarkForDelete == false) {
+                DataLine = ConvertRecordToLine(client);
+                write << DataLine << endl; // push to file 
+            }
+        }
+        write.close();
+    }
+    return Vclients;
+}
+
+
+
