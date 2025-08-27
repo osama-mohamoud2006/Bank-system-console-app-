@@ -437,3 +437,84 @@ enum enMainMenueOptions
 };
 
 
+void GoBackToMainMenue()
+{
+    cout << "\n\nPress any key to go back to Main Menue...";
+    system("pause>0");
+    ShowMainMenue();
+}
+
+short ReadMainMenueOption()
+{
+    cout << "Choose what do you want to do? [1 to 6]? ";
+    short Choice = 0;
+    cin >> Choice;
+
+    return Choice;
+}
+
+void PerfromMainMenueOption(enMainMenueOptions MainMenueOption)
+{
+    switch (MainMenueOption)
+    {
+    case enMainMenueOptions::eListClients:
+    {
+        system("cls");
+        ShowAllClientsScreen();
+        GoBackToMainMenue();
+        break;
+    }
+    case enMainMenueOptions::eAddNewClient:
+        system("cls");
+        ShowAddNewClientsScreen();
+        GoBackToMainMenue();
+        break;
+
+    case enMainMenueOptions::eDeleteClient:
+        system("cls");
+        ShowDeleteClientScreen();
+        GoBackToMainMenue();
+        break;
+
+    case enMainMenueOptions::eUpdateClient:
+        system("cls");
+        ShowUpdateClientScreen();
+        GoBackToMainMenue();
+        break;
+
+    case enMainMenueOptions::eFindClient:
+        system("cls");
+        ShowFindClientScreen();
+        GoBackToMainMenue();
+        break;
+
+    case enMainMenueOptions::eExit:
+        system("cls");
+        ShowEndScreen();
+        break;
+    }
+}
+
+void ShowMainMenue()
+{
+    system("cls");
+    cout << "===========================================\n";
+    cout << "\t\tMain Menue Screen\n";
+    cout << "===========================================\n";
+    cout << "\t[1] Show Client List.\n";
+    cout << "\t[2] Add New Client.\n";
+    cout << "\t[3] Delete Client.\n";
+    cout << "\t[4] Update Client Info.\n";
+    cout << "\t[5] Find Client.\n";
+    cout << "\t[6] Exit.\n";
+    cout << "===========================================\n";
+    PerfromMainMenueOption((enMainMenueOptions)ReadMainMenueOption());
+}
+
+int main()
+
+{
+    ShowMainMenue();
+    system("pause>0");
+    return 0;
+}
