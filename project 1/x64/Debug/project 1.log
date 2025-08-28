@@ -4,9 +4,9 @@ E:\projects\my library\logic_stuff.h(117,14): warning C4267: 'initializing': con
   
 E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\project 1.cpp(53,45): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
 E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\project 1.cpp(66,36): warning C4267: '=': conversion from 'size_t' to 'short', possible loss of data
-E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\project 1.cpp(205,26): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\project 1.cpp(603,31): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\project 1.cpp(632,102): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\project 1.cpp(640,104): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\project 1.cpp(672,26): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\project 1.cpp(206,26): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\project 1.cpp(601,31): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\project 1.cpp(630,102): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\project 1.cpp(638,104): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\project 1.cpp(670,26): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
   project 1.vcxproj -> E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\x64\Debug\project 1.exe

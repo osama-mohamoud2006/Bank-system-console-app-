@@ -5,13 +5,13 @@ E:\projects\my library\logic_stuff.h(117,14): warning C4267: 'initializing': con
 E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\project 1.cpp(53,45): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
 E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\project 1.cpp(66,36): warning C4267: '=': conversion from 'size_t' to 'short', possible loss of data
 E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\project 1.cpp(206,26): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\project 1.cpp(604,31): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\project 1.cpp(633,102): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\project 1.cpp(641,104): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\project 1.cpp(673,26): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\project 1.cpp(622,31): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\project 1.cpp(652,102): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\project 1.cpp(660,104): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\project 1.cpp(692,26): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
   Generating code
-  11 of 423 functions ( 2.6%) were compiled, the rest were copied from previous compilation.
+  0 of 424 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   project 1.vcxproj -> E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\x64\Release\project 1.exe

@@ -545,14 +545,11 @@ void find_client(vector<stdata>& all_data_from_file_in_vector) {
 
 
 }
-
 ///////////////////////////////////
 /*
 * Transcations Stuff
 */
 ///////////////////////////////////////
-
-
 stdata EditBalance( int amount , stdata &originaData) {
 	stdata Client;
 	Client.account_number = originaData.account_number;
