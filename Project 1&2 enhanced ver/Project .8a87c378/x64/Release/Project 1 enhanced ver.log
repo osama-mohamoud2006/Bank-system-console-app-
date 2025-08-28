@@ -1,0 +1,6 @@
+﻿  Project 1 enhanced ver.cpp
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(26,26): warning C4267: '=': conversion from 'size_t' to 'short', possible loss of data
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(458,6): error C2182: 'PerfromTranactionsMenueOption': this use of 'void' is not valid
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(458,59): error C2146: syntax error: missing ')' before identifier 'TransactionMenueOption'
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(458,83): error C2143: syntax error: missing ';' before '{'
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(458,83): error C2447: '{': missing function header (old-style formal list?)
