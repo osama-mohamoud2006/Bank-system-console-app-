@@ -658,7 +658,7 @@ void ShowWithDrawScreen()
 }
 
 void ShowTotalBalancesScreen()
-{
+{void 
 
     ShowTotalBalances();
 

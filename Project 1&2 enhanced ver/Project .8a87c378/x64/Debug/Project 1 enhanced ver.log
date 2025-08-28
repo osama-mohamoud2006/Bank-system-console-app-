@@ -1,5 +1,51 @@
 ﻿  Project 1 enhanced ver.cpp
 E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(26,26): warning C4267: '=': conversion from 'size_t' to 'short', possible loss of data
-E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(328,1): warning C4715: 'DeleteClientByAccountNumber': not all control paths return a value
-E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(360,1): warning C4715: 'UpdateClientByAccountNumber': not all control paths return a value
-  Project 1 enhanced ver.vcxproj -> E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\x64\Debug\Project 1 enhanced ver.exe
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(96,17): error C2182: 'PerfromTranactionsMenueOption': this use of 'void' is not valid
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(96,47): error C2065: 'enTransactionsMenuOptions': undeclared identifier
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(96,73): error C2146: syntax error: missing ')' before identifier 'TransactionMenueOption'
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(97,5): error C2143: syntax error: missing ';' before '{'
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(98,17): error C2065: 'TransactionMenueOption': undeclared identifier
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(98,17): error C2050: switch expression not integral
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(100,14): error C2653: 'enTransactionsMenueOptions': is not a class or namespace name
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(100,42): error C2065: 'eDeposit': undeclared identifier
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(100,42): error C2131: expression did not evaluate to a constant
+      E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(100,42):
+      a non-constant (sub-)expression was encountered
+  
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(103,13): error C3861: 'ShowDepositScreen': identifier not found
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(104,13): error C3861: 'GoBackToTransactionsMenue': identifier not found
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(108,14): error C2653: 'enTransactionsMenueOptions': is not a class or namespace name
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(108,42): error C2065: 'eWithdraw': undeclared identifier
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(108,42): error C2131: expression did not evaluate to a constant
+      E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(108,42):
+      a non-constant (sub-)expression was encountered
+  
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(111,13): error C3861: 'ShowWithDrawScreen': identifier not found
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(112,13): error C3861: 'GoBackToTransactionsMenue': identifier not found
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(116,14): error C2653: 'enTransactionsMenueOptions': is not a class or namespace name
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(116,42): error C2065: 'eShowTotalBalance': undeclared identifier
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(116,42): error C2131: expression did not evaluate to a constant
+      E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(116,42):
+      a non-constant (sub-)expression was encountered
+  
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(119,13): error C3861: 'ShowTotalBalancesScreen': identifier not found
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(120,13): error C3861: 'GoBackToTransactionsMenue': identifier not found
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(124,14): error C2653: 'enTransactionsMenueOptions': is not a class or namespace name
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(124,42): error C2065: 'eShowMainMenue': undeclared identifier
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(124,42): error C2131: expression did not evaluate to a constant
+      E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(124,42):
+      a non-constant (sub-)expression was encountered
+  
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(100,42): error C2051: case expression not constant
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(108,42): error C2051: case expression not constant
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(116,42): error C2051: case expression not constant
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(124,42): error C2051: case expression not constant
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(128,9): warning C4060: switch statement contains no 'case' or 'default' labels
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(622,6): error C2084: function 'void GoBackToMainMenue(void)' already has a body
+      E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(476,6):
+      see previous definition of 'GoBackToMainMenue'
+  
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(644,6): error C2182: 'PerfromTranactionsMenueOption': this use of 'void' is not valid
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(644,62): error C2146: syntax error: missing ')' before identifier 'TransactionMenueOption'
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(645,1): error C2143: syntax error: missing ';' before '{'
+E:\projects\c++ course\07 - Algorithms & Problem Solving Level 3\Project 1& Extension\Project 1&2 enhanced ver\Project 1 enhanced ver.cpp(645,1): error C2447: '{': missing function header (old-style formal list?)
