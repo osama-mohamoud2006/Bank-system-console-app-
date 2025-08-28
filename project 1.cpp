@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include<cmath>
 #include <vector>
 #include <cctype>
 #include <string>
@@ -15,7 +16,7 @@ struct stdata
 	string pin = " ";
 	string name = " ";
 	string phone = " ";
-	string account_balance = " ";
+	int account_balance = 0;
 	bool mark_for_delete = false;
 	
 };
@@ -49,7 +50,7 @@ stdata fill_data(string account_number) {
 	data.pin = read_string("\nenter pin: ");
 	data.name = read_full_line("\nenter name: ");
 	data.phone = read_string("\nenter your phone number: ");
-	data.account_balance = read_string("\nenter account balance: ");
+	data.account_balance = enter_postive_number("\nenter account balance: ");
 	return data;
 	
 
@@ -88,7 +89,7 @@ stdata convert_line_into_record(string new_client_line) {
 	data.pin = dataSplited[1];
 	data.name= dataSplited[2];
 	data.phone =dataSplited[3];
-	data.account_balance = dataSplited[4];
+	data.account_balance = stoi(dataSplited[4]);
 
 	return data;
 
@@ -229,7 +230,7 @@ bool check_the_account_number(vector<stdata> &search_account_number,string accou
 
 //convert stdata into single line to store in file 
 string convert_stdata_into_single_line(stdata data) {
-	return (data.account_number + delmi + (data.pin) + delmi + data.name + delmi + data.phone + delmi + (data.account_balance));
+	return (data.account_number + delmi + (data.pin) + delmi + data.name + delmi + data.phone + delmi + to_string(data.account_balance));
 }
 
 //take vector with edited data and write it into file
@@ -299,6 +300,7 @@ vector<stdata> update(vector<stdata>& AlldataFromVector, stdata& FilledDate_Clie
 	vector<stdata> Edit_the_orignail_data;
 
 	FilledDate_Client_to_update.account_number = account_number_to_update; // new data with account number 
+
 	for (stdata& Origninal_data : AlldataFromVector) {
 		if (Origninal_data.account_number == FilledDate_Client_to_update.account_number) {
 
@@ -543,24 +545,132 @@ void find_client(vector<stdata>& all_data_from_file_in_vector) {
 
 }
 
+///////////////////////////////////
+/*
+* Transcations Stuff
+*/
+///////////////////////////////////////
 
 
+stdata EditBalance( int amount , stdata &originaData) {
+	stdata Client;
+	Client.account_number = originaData.account_number;
+	Client.name = originaData.name;
+	Client.pin = originaData.pin;
+	Client.phone = originaData.phone;
+	Client.account_balance = originaData.account_balance + amount;
+	return Client;
+}
 
+//show the screen before depost
+stdata start_screen_operation(vector<stdata>& all_data_from_file_in_vector,string & account_numberFromUser) {
 
+	print_menu_option("Deposit Screen");
 
+	stdata Client;
 
+	 account_numberFromUser = read_string("enter account number: ");
 
+	// if account number isn't exist 
+	while (check_the_account_number(all_data_from_file_in_vector, account_numberFromUser, Client) != true) {
 
+		cout << "\naccount number (" << account_numberFromUser << ") isn't exist! " << endl;
+		cout << "\a";
+		screen_color(red);
+		account_numberFromUser = read_string("enter account number Again: ");
 
+	}
+	screen_color(black); // rest color again 
+	return Client;
+}
+void Update_file(vector<stdata>& all_data_from_file_in_vector) {
 
+	//convert the new vector of struct into string to update file 
+	vector<string>New_lines_to_push_in_file_after_delete; //push old lines with updated line 
 
+	New_lines_to_push_in_file_after_delete = update_before_push_into_file(all_data_from_file_in_vector);
 
-void Deposit() {
+	//update the file 
+	edit_file(New_lines_to_push_in_file_after_delete);
+}
+void Deposit(vector<stdata> &all_data_from_file_in_vector) {
 
+	string account_numberFromUser = "";
+	stdata Client; 
+	Client= start_screen_operation(all_data_from_file_in_vector, account_numberFromUser);
+	
+	print_client_details(Client); // print details if account exists 
+
+	int amount = 0;
+	amount = enter_postive_number("\nenter the amount you want to depoist to this account number: ");
+
+	cout << "\a\nare you sure? [y],[n]: ";
+	if (choice_y_n() == 'Y') {
+
+		Client = EditBalance(amount, Client); // keep the other data and just changed balance 
+
+      // take the whole vector and search about account number if it founded will push new data in the same account number
+      all_data_from_file_in_vector = update(all_data_from_file_in_vector, Client, account_numberFromUser);
+
+		Update_file(all_data_from_file_in_vector);
+		cout << "\nthe new balance is: " << Client.account_balance << endl;
+	}
+	else {
+		cout << "\nNothing changed!\n";
+	}
+
+	
 }
 
 
 
+void Withdraw(vector<stdata>& all_data_from_file_in_vector) {
+
+	string account_numberFromUser = "";
+	stdata Client;
+
+	Client = start_screen_operation(all_data_from_file_in_vector, account_numberFromUser);
+	print_client_details(Client); // print details if account exists 
+
+	int amount = 0;
+	amount = (enter_postive_number("\nenter the amount you want to withdraw from this account number: ")*-1);
+
+	// if the amount bigger than your actual balance 
+	while (abs(amount) > Client.account_balance) {
+		cout << "\nthe amount you want to withdraw is bigger than your balance!\a\n";
+		cout << "\nYOUR CUURENT BALANCE IS: " << Client.account_balance << endl;
+		amount = 0;
+		amount = (enter_postive_number("enter the amount you want from withdraw to this account number: ") * -1);
+	}
+	
+	cout << "\a\nare you sure? [y],[n]: ";
+	if (choice_y_n() == 'Y') {
+
+		Client = EditBalance(amount, Client); // keep the other data and just changed balance 
+
+		// take the whole vector and search about account number if it founded will push new data in the same account number
+		all_data_from_file_in_vector = update(all_data_from_file_in_vector, Client, account_numberFromUser);
+
+		Update_file(all_data_from_file_in_vector);
+		cout << "\nthe new balance is: " << Client.account_balance << endl;
+	}
+	else {
+		cout << "\nNothing changed!\n";
+	}
+}
+
+
+
+
+int total_balances_Sum(vector<stdata>& all_data_from_file_in_vector) {
+
+	int sum = 0;
+	stdata data;
+	for (stdata client_b : all_data_from_file_in_vector) {
+	 sum += client_b.account_balance;
+	}
+	return sum; 
+}
 //option 3 in transcations menu
 void Print_total_balances(vector<stdata>& vprint) {
 
@@ -571,13 +681,10 @@ void Print_total_balances(vector<stdata>& vprint) {
 
 		printStruct(client,true); // print  total balances 
 	}
-
+	cout << "\n\tTHE TOTAL BALANCES IS: " << total_balances_Sum(vprint) << endl;
 }
-
 //////////////////////////////Main menu + transcations menu //////////////////////////////////////////
-
 enum entranscations { deposit = 1, withdraw = 2, total_balances = 3, back_to_main_menu = 4 };
-
 enOption select_option() {
 	bool is_ok = false;
 	int number = 0;
@@ -625,8 +732,6 @@ void exit_screen() {
 	cout << "\t________________________________________________________________________" << endl;
 	system("pause");
 }
-
-
 // show the menu of transcations//////////////////////////////
 void transcationsScreenMenu() {
 
@@ -651,12 +756,12 @@ void do_transcations(entranscations operations) {
 	switch ( operations) {
 
 	case entranscations::deposit:
-		cout << "\n this will be deposit menu ";
+		Deposit(all_data_from_file_in_vector);
 		back_to_menu();
 		break;
 
 	case entranscations::withdraw:
-		cout << "\nthis will be withdraw menu!\n";
+		Withdraw(all_data_from_file_in_vector);
 		back_to_menu();
 		break;
 
