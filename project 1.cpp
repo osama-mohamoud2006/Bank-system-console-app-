@@ -19,7 +19,7 @@ struct stdata
 	bool mark_for_delete = false;
 	
 };
-enum enOption{ none =0,showClientList=1 , addNewClient=2 ,deleteClient=3 ,updateClient=4 ,searchClient=5,Exit=6 };
+enum enOption{ none =0,showClientList=1 , addNewClient=2 ,deleteClient=3 ,updateClient=4 ,searchClient=5,Transactions=6, Exit=7 };
 const string path = "local db.text";
 const string delmi = "#//#";
 void  back_to_menu() {
@@ -265,6 +265,7 @@ vector<string> update_before_push_into_file(vector<stdata>& all_data_from_file_i
 vector<stdata> update(vector<stdata>& AlldataFromVector, stdata& FilledDate_Client_to_update, string account_number_to_update) {
 
 	vector<stdata> Edit_the_orignail_data;
+
 	FilledDate_Client_to_update.account_number = account_number_to_update; // new data with account number 
 	for (stdata& Origninal_data : AlldataFromVector) {
 		if (Origninal_data.account_number == FilledDate_Client_to_update.account_number) {
@@ -510,8 +511,20 @@ void find_client(vector<stdata>& all_data_from_file_in_vector) {
 
 }
 
-/// main menu stuff ////////////////////////////////////////////////////////////////
 
+
+
+
+
+
+void transcations() {
+	cout << "this is news menu under development!" << endl;
+}
+
+
+
+
+/// main menu stuff ////////////////////////////////////////////////////////////////
 enOption select_option() {
 	bool is_ok = false;
 	int number = 0;
@@ -546,7 +559,8 @@ void main_menu() {
 	cout << setw(4) << "\t[3] delete client." << endl;
 	cout << setw(4) << "\t[4] update clients info." << endl;
 	cout << setw(4) << "\t[5] find client." << endl;
-	cout << setw(4) << "\t[6] exit." << endl;
+	cout << setw(4) << "\t[6] Transactions." << endl;
+	cout << setw(4) << "\t[7] exit." << endl;
 	cout << "\n_____________________________________________________\n\n";
 	cout << "Please enter the option you want: " ;
 
@@ -590,7 +604,12 @@ void do_job_according_to_number(enOption option) {
 		back_to_menu(); // to back to main menu again 
 		break;
 
-	case enOption::Exit: // option[6]
+	case enOption::Transactions: // option [6]
+		transcations();
+		back_to_menu(); // to back to main menu again 
+		break;
+
+	case enOption::Exit: // option[7]
 		exit_screen();
 		break;
 
