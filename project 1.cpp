@@ -125,33 +125,65 @@ vector<stdata> Vector_have_all_data(string path){
 }
 
 //print header for show client list (FOR "SHOW ALL CLIENT (1) ) 
-void print_header(int num=1) {
-	cout << "\n\n";
-	cout << setw(35) << right << " CLIENTS LIST (" << num << ")\n\n";
+void print_header(int num=1, bool menu2 = false) {
 
-	cout << left;
-	cout << setw(15) << "Account Num"
-		<< setw(10) << "Pin"
+	if (menu2 == false) {
+
+		cout << "\n\n";
+		cout << setw(35) << right << " CLIENTS LIST (" << num << ")\n\n";
+
+		cout << left;
+		cout << setw(15) << "Account Num"
+			<< setw(10) << "Pin"
+			<< setw(22) << "Name"
+			<< setw(18) << "Phone"
+			<< setw(12) << "Balance"
+			<< endl;
+
+		cout << string(77, '-') << endl;
+
+	}
+	else {
+		cout << "\n\n";
+		cout << setw(35) << right << " CLIENTS LIST (" << num << ")\n\n";
+
+		cout << left
 		<< setw(22) << "Name"
-		<< setw(18) << "Phone"
-		<< setw(12) << "Balance"
-		<< endl;
+			<< setw(12) << "Balance"
+			<< endl;
 
-	cout << string(77, '-') << endl; 
+		cout << string(77, '-') << endl;
+	}
+
 }
 
 //print data (FOR "SHOW ALL CLIENT (1) ) 
-void printStruct(const stdata& data)
+void printStruct(const stdata& data , bool menu2=false)
 {
-	cout << "| " << left
-		<< setw(13) << data.account_number << " | "
-		<< setw(8) << data.pin << " | "
-		<< setw(18) << data.name << " | "
-		<< setw(13) << data.phone << " | "
-		<< right
-		<< setw(10) << data.account_balance << " |"
-		<< endl;
-	cout << "+---------------+----------+--------------------+---------------+------------+" << endl;
+	if (menu2 == false) {
+
+		cout << "| " << left
+			<< setw(13) << data.account_number << " | "
+			<< setw(8) << data.pin << " | "
+			<< setw(18) << data.name << " | "
+			<< setw(13) << data.phone << " | "
+			<< right
+			<< setw(10) << data.account_balance << " |"
+			<< endl;
+		cout << "+---------------+----------+--------------------+---------------+------------+" << endl;
+
+	}
+	else {
+
+		cout << "| " << left
+			<< setw(18) << data.name << " | "
+			<< right
+			<< setw(10) << data.account_balance << " |"
+			<< endl;
+		cout << "+---------------+----------+--------------------+---------------+------------+" << endl;
+
+	}
+
 }
 
 //print data for 1 client only 
@@ -517,14 +549,35 @@ void find_client(vector<stdata>& all_data_from_file_in_vector) {
 
 
 
-void transcations() {
-	cout << "this is news menu under development!" << endl;
+
+
+
+
+
+
+void Deposit() {
+
 }
 
 
 
+//option 3 in transcations menu
+void Print_total_balances(vector<stdata>& vprint) {
 
-/// main menu stuff ////////////////////////////////////////////////////////////////
+	//true is indicating to menu2
+	print_header(vprint.size(),true); // print header
+	for (const stdata& client : vprint) {
+
+
+		printStruct(client,true); // print  total balances 
+	}
+
+}
+
+//////////////////////////////Main menu + transcations menu //////////////////////////////////////////
+
+enum entranscations { deposit = 1, withdraw = 2, total_balances = 3, back_to_main_menu = 4 };
+
 enOption select_option() {
 	bool is_ok = false;
 	int number = 0;
@@ -550,21 +603,21 @@ enOption select_option() {
 }
 void main_menu() {
 	system("cls");
-	cout << setw(5) << "\tWelcome to bank system! " ;
+	cout << setw(5) << "\tWelcome to bank system! ";
 	cout << "\n_____________________________________________________\n\n";
-	cout << setw(5) << "please enter the number of the option you want: \n"<<endl;
+	cout << setw(5) << "please enter the number of the option you want: \n" << endl;
 
-	cout << setw(4)<<"\t[1] print the clients list." << endl;
-	cout << setw(4)<<"\t[2] add new client." << endl;
+	cout << setw(4) << "\t[1] print the clients list." << endl;
+	cout << setw(4) << "\t[2] add new client." << endl;
 	cout << setw(4) << "\t[3] delete client." << endl;
 	cout << setw(4) << "\t[4] update clients info." << endl;
 	cout << setw(4) << "\t[5] find client." << endl;
 	cout << setw(4) << "\t[6] Transactions." << endl;
 	cout << setw(4) << "\t[7] exit." << endl;
 	cout << "\n_____________________________________________________\n\n";
-	cout << "Please enter the option you want: " ;
+	cout << "Please enter the option you want: ";
 
-	
+
 }
 void exit_screen() {
 	cout << "\t________________________________________________________________________" << endl;
@@ -572,6 +625,70 @@ void exit_screen() {
 	cout << "\t________________________________________________________________________" << endl;
 	system("pause");
 }
+
+
+// show the menu of transcations//////////////////////////////
+void transcationsScreenMenu() {
+
+	cout << setw(5) << "\tWelcome to Transactions system! ";
+	cout << "\n_____________________________________________________\n\n";
+	cout << setw(5) << "please enter the number of the option you want: \n" << endl;
+
+	cout << setw(4) << "\t[1] Deposit." << endl;
+	cout << setw(4) << "\t[2] Withdraw." << endl;
+	cout << setw(4) << "\t[3] Total balances." << endl;
+	cout << setw(4) << "\t[4] Main menu." << endl;
+	cout << "\n_____________________________________________________\n\n";
+	cout << "Please enter the option you want: ";
+
+}
+void do_transcations(entranscations operations) {
+
+	system("cls");
+
+	//the vector that have all data as struct 
+	vector<stdata> all_data_from_file_in_vector = Vector_have_all_data(path); // call this function once instead  of calling it in every option implementation 
+	switch ( operations) {
+
+	case entranscations::deposit:
+		cout << "\n this will be deposit menu ";
+		back_to_menu();
+		break;
+
+	case entranscations::withdraw:
+		cout << "\nthis will be withdraw menu!\n";
+		back_to_menu();
+		break;
+
+	case entranscations::total_balances:
+		Print_total_balances(all_data_from_file_in_vector);
+		back_to_menu();
+		break;
+
+	default:
+		entranscations::back_to_main_menu;
+		break;
+	}
+
+}
+void StartTransactions() {
+
+	system("cls");
+	screen_color(black);
+	entranscations choice ; // intial 
+
+	do {
+
+		system("cls");
+		transcationsScreenMenu(); // show menu  of transcations
+		choice = entranscations(select_option());// select option according to user then run selected operation
+		do_transcations(choice);
+
+	} while (choice != entranscations::back_to_main_menu);
+
+}
+
+///////////////////////////////////////////////////////////////////////////////////
 void do_job_according_to_number(enOption option) {
 	system("cls");
 
@@ -605,8 +722,8 @@ void do_job_according_to_number(enOption option) {
 		break;
 
 	case enOption::Transactions: // option [6]
-		transcations();
-		back_to_menu(); // to back to main menu again 
+		StartTransactions();
+		//back_to_menu(); // to back to main menu again 
 		break;
 
 	case enOption::Exit: // option[7]
@@ -646,4 +763,4 @@ int main() {
 	start();
 
 
-}
+} 
