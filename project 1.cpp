@@ -561,8 +561,6 @@ stdata EditBalance( int amount , stdata &originaData) {
 	Client.account_balance = originaData.account_balance + amount;
 	return Client;
 }
-
-//show the screen before depost
 stdata start_screen_operation(vector<stdata>& all_data_from_file_in_vector,string & account_numberFromUser) {
 
 	print_menu_option("Deposit Screen");
@@ -602,7 +600,7 @@ void Deposit(vector<stdata> &all_data_from_file_in_vector) {
 	print_client_details(Client); // print details if account exists 
 
 	int amount = 0;
-	amount = enter_postive_number("\nenter the amount you want to depoist to this account number: ");
+	amount = enter_postive_number("\nenter the amount you want to deposit to this account number: ");
 
 	cout << "\a\nare you sure? [y],[n]: ";
 	if (choice_y_n() == 'Y') {
@@ -621,9 +619,6 @@ void Deposit(vector<stdata> &all_data_from_file_in_vector) {
 
 	
 }
-
-
-
 void Withdraw(vector<stdata>& all_data_from_file_in_vector) {
 
 	string account_numberFromUser = "";
@@ -658,10 +653,6 @@ void Withdraw(vector<stdata>& all_data_from_file_in_vector) {
 		cout << "\nNothing changed!\n";
 	}
 }
-
-
-
-
 int total_balances_Sum(vector<stdata>& all_data_from_file_in_vector) {
 
 	int sum = 0;
