@@ -491,7 +491,7 @@ void ShowDepositScreen() {
     // if account number isn't exist 
     while (!FindClientByAccountNumber(accouhntnumber, vclients, client)) {
         cout << "\nClient with [" << accouhntnumber << "] does not exist.\n";
-        string accouhntnumber = ReadClientAccountNumber();
+         accouhntnumber = ReadClientAccountNumber();
     }
 
     PrintClientCard(client); // print the client that its account number is exist
@@ -502,6 +502,13 @@ void ShowDepositScreen() {
 
     DepositBalanceToClientByAccountNumber(accouhntnumber, amount, vclients);
 
+}
+
+void PrintClientRecordBalanceLine(sClient Client) {
+
+    cout << "| " << setw(15) << left << Client.AccountNumber;
+    cout << "| " << setw(40) << left << Client.Name;
+    cout << "| " << setw(12) << left << Client.AccountBalance;
 }
 
 
@@ -553,7 +560,7 @@ void ShowTotalBalances() {
     else {
 
         for (sClient client : vclinets) {
-            PrintClientCard(client);
+            PrintClientRecordBalanceLine(client);
             total_balances += client.AccountBalance;
         }
         cout << endl;
@@ -569,13 +576,6 @@ void ShowTotalBalances() {
 
 void ShowTotalBalancesScreen() {
     ShowTotalBalances();
-}
-
-void GoBackToMainMenue()
-{
-    cout << "\n\nPress any key to go back to Main Menue...";
-    system("pause>0");
-    ShowMainMenue();
 }
 
 void GoBackToTransactionsMenue()
@@ -600,16 +600,23 @@ void PerfromTranactionsMenueOption(enTransactionsMenueOptions option)
     case eDeposit:
         system("cls");
         ShowDepositScreen();
-        GoBackToMainMenue();
+        GoBackToTransactionsMenue();
         break;
 
     case eWithdraw:
         system("cls");
         ShowWithDrawScreen();
-        GoBackToMainMenue();
+        GoBackToTransactionsMenue();
         break;
 
     case enTransactionsMenueOptions::eShowTotalBalance:
+        system("cls");
+        ShowTotalBalances();
+        GoBackToTransactionsMenue();
+        break;
+
+    default:
+        GoBackToMainMenue();
 
     }
 }
@@ -626,6 +633,7 @@ void ShowTransactionsMenue() {
     cout << "\t[4] Main Menue.\n";
     cout << "===========================================\n";
 
+    PerfromTranactionsMenueOption((enTransactionsMenueOptions)ReadTransactionsMenueOption());
 }
 
 void PerfromMainMenueOption(enMainMenueOptions MainMenueOption)
