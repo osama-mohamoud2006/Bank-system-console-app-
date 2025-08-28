@@ -127,6 +127,7 @@ vector<stdata> Vector_have_all_data(string path){
 
 //print header for show client list (FOR "SHOW ALL CLIENT (1) ) 
 void print_header(int num=1, bool menu2 = false) {
+	if (num == 0) cout << "\nNo One In the System!\a\n";
 
 	if (menu2 == false) {
 
@@ -605,6 +606,7 @@ void Deposit(vector<stdata> &all_data_from_file_in_vector) {
 	cout << "\a\nare you sure? [y],[n]: ";
 	if (choice_y_n() == 'Y') {
 
+      screen_color(green);
 		Client = EditBalance(amount, Client); // keep the other data and just changed balance 
 
       // take the whole vector and search about account number if it founded will push new data in the same account number
@@ -617,7 +619,7 @@ void Deposit(vector<stdata> &all_data_from_file_in_vector) {
 		cout << "\nNothing changed!\n";
 	}
 
-	
+	screen_color(black);
 }
 void Withdraw(vector<stdata>& all_data_from_file_in_vector) {
 
@@ -632,15 +634,16 @@ void Withdraw(vector<stdata>& all_data_from_file_in_vector) {
 
 	// if the amount bigger than your actual balance 
 	while (abs(amount) > Client.account_balance) {
+		screen_color(red);
 		cout << "\nthe amount you want to withdraw is bigger than your balance!\a\n";
 		cout << "\nYOUR CUURENT BALANCE IS: " << Client.account_balance << endl;
 		amount = 0;
-		amount = (enter_postive_number("enter the amount you want from withdraw to this account number: ") * -1);
+		amount = (enter_postive_number("\nenter the amount you want from withdraw to this account number: ") * -1);
 	}
 	
 	cout << "\a\nare you sure? [y],[n]: ";
 	if (choice_y_n() == 'Y') {
-
+		screen_color(green);
 		Client = EditBalance(amount, Client); // keep the other data and just changed balance 
 
 		// take the whole vector and search about account number if it founded will push new data in the same account number
@@ -652,6 +655,7 @@ void Withdraw(vector<stdata>& all_data_from_file_in_vector) {
 	else {
 		cout << "\nNothing changed!\n";
 	}
+	screen_color(black);
 }
 int total_balances_Sum(vector<stdata>& all_data_from_file_in_vector) {
 
